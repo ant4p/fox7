@@ -10,7 +10,7 @@ RUN apt update
 
 COPY . .
 
-EXPOSE 8000
+EXPOSE 8080
 
 RUN chmod a+x /fox7/start.sh
 
