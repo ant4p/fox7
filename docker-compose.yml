@@ -1,0 +1,66 @@
+services:
+  db:
+    image: postgres:15
+    container_name: DB
+    restart: always
+    volumes:
+      - ~/.pg.pg_data/hikingapp:/var/lib/postgresql/data
+    env_file:
+      - .env
+
+  hikingapp:
+    build:
+      context: .
+    container_name: GO
+    image: go
+    restart: always
+    entrypoint: /fox7/start.sh
+    ports:
+      - "8000:8000"
+    depends_on:
+       - db
+    volumes:
+      - static:/fox7/static
+      - media:/fox7/media
+    env_file:
+      - .env
+    environment:
+      - VIRTUAL_HOST=${ALLOWED_HOST}
+      - LETSENCRYPT_HOST=${ALLOWED_HOST}
+      - DEFAULT_HOST=${ALLOWED_HOST}
+
+  nginx:
+    build:
+      context: ./nginx/
+    container_name: NGINX_jw
+    restart: always
+    volumes:
+      - static:/fox7/static
+      - media:/fox7/media
+      - certs:/etc/nginx/certs
+      - vhost:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    depends_on:
+      - go
+    ports:
+      - "80:80"
+      - "443:443"
+
+  acme_companion:
+    image: nginxproxy/acme-companion
+    container_name: ACME
+    volumes_from:
+      - nginx
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - acme:/etc/acme.sh
+      - certs:/etc/nginx/certs
+
+volumes:
+  static:
+  media:
+  certs:
+  vhost:
+  html:
+  acme:
