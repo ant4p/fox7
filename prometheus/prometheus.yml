@@ -2,13 +2,14 @@ global:
   scrape_interval: 15s
   evaluation_interval: 15s
 
-alerting:
-  alertmanagers:
-    - static_configs:
-        - targets:
+  external_labels:
+    monitor: django-monitor
+
+rule_files:
+  - "django.rules"
 
 scrape_configs:
-  - job_name: 'prometheus'
+  - job_name: 'django'
 
     static_configs:
-      - targets: ['go:8000']
+      - targets: ["go:8000"]
