@@ -12,6 +12,7 @@ scrape_configs:
   - job_name: 'django'
 
     static_configs:
-      - targets: ["go:8000"]
-      - targets: ["nginx:80"]
-      - targets: ["nginx:443"]
+      - targets:
+          - go:8000
+          - nginx:80
+          - nginx:443
