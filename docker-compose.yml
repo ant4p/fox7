@@ -66,6 +66,13 @@ services:
     volumes:
       - grafana_data:/var/lib/grafana
 
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus/prometheus.yml:/prometheus/prometheus.yml
+
 volumes:
   static:
   media:
