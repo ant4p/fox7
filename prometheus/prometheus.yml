@@ -14,5 +14,5 @@ scrape_configs:
     static_configs:
       - targets:
           - go:8000
-          - nginx:80
-          - nginx:443
+          - ${ALLOWED_HOST}:80
+          - ${ALLOWED_HOST}:443
