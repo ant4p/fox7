@@ -38,7 +38,7 @@ services:
       - static:/fox7/static
       - media:/fox7/media
       - certs:/etc/nginx/certs
-      - vhost:/etc/nginx/vhost.d
+      - vhost:/etc/nginx/vhost.dcd
       - html:/usr/share/nginx/html
       - /var/run/docker.sock:/tmp/docker.sock:ro
     depends_on:
