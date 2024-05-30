@@ -5,3 +5,10 @@ location /static/ {
 location /media/ {
     alias /fox7/media/;
 }
+
+location /path {
+    rewrite /path/(.*) /$1 break;
+    proxy_pass http://backend_app;
+    proxy_set_header Host $http_host;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    }
