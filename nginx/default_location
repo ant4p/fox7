@@ -7,9 +7,9 @@ location /media/ {
 }
 
 
-location /path {
-    rewrite /path/(.*) /$1 break;
-    proxy_pass http://fox7;
+location / {
+    rewrite /(.*) /$1 break;
+    proxy_pass http://fox7:8000;
     proxy_set_header Host $http_host;
     proxy_set_header X-Forwarded-Proto $scheme;
     }
