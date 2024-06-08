@@ -15,8 +15,6 @@ services:
     image: go
     restart: always
     entrypoint: /fox7/start.sh
-    ports:
-      - "8000:8000"
     depends_on:
        - db
     volumes:
