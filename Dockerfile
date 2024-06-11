@@ -16,3 +16,4 @@ EXPOSE 8000
 RUN chmod a+x /fox7/start.sh
 
 ENTRYPOINT ["./start.sh"]
+
